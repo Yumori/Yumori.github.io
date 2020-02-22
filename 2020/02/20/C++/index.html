@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.4.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.4.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="C++面向对象思想封装继承多态重载和重写常见面试问题1. 指针和引用的区别 ： 引用被创建的同时必须被初始化（指针则可以在任何时候被初始化）。不能有 NULL 引用，引用必须与合法的存储单元关联（指针则可以是 NULL）。一旦引用被初始化，就不能改变引用的关系（指针则可以随时改变所指的对象）。2. new 和 delete 是如何实现的。 ：C++程序中，所有内存需求都是在程序执行之前通过定义所需">
+<meta name="keywords" content="准备面试（C++语言基础，操作系统，计算机网络，数据库，设计模式，算法）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++语言基础">
+<meta property="og:url" content="http://yoursite.com/2020/02/20/C++/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="C++面向对象思想封装继承多态重载和重写常见面试问题1. 指针和引用的区别 ： 引用被创建的同时必须被初始化（指针则可以在任何时候被初始化）。不能有 NULL 引用，引用必须与合法的存储单元关联（指针则可以是 NULL）。一旦引用被初始化，就不能改变引用的关系（指针则可以随时改变所指的对象）。2. new 和 delete 是如何实现的。 ：C++程序中，所有内存需求都是在程序执行之前通过定义所需">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-02-22T10:11:25.113Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C++语言基础">
+<meta name="twitter:description" content="C++面向对象思想封装继承多态重载和重写常见面试问题1. 指针和引用的区别 ： 引用被创建的同时必须被初始化（指针则可以在任何时候被初始化）。不能有 NULL 引用，引用必须与合法的存储单元关联（指针则可以是 NULL）。一旦引用被初始化，就不能改变引用的关系（指针则可以随时改变所指的对象）。2. new 和 delete 是如何实现的。 ：C++程序中，所有内存需求都是在程序执行之前通过定义所需">
+  <link rel="canonical" href="http://yoursite.com/2020/02/20/C++/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>C++语言基础 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+  </ul>
+
+    
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+      <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block post">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/20/C++/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">C++语言基础
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2020-02-20 17:06:12" itemprop="dateCreated datePublished" datetime="2020-02-20T17:06:12+08:00">2020-02-20</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-02-22 18:11:25" itemprop="dateModified" datetime="2020-02-22T18:11:25+08:00">2020-02-22</time>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="C"><a href="#C" class="headerlink" title="C++"></a>C++</h3><h3 id="面向对象思想"><a href="#面向对象思想" class="headerlink" title="面向对象思想"></a>面向对象思想</h3><h2 id="封装"><a href="#封装" class="headerlink" title="封装"></a>封装</h2><h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><h2 id="多态"><a href="#多态" class="headerlink" title="多态"></a>多态</h2><h3 id="重载和重写"><a href="#重载和重写" class="headerlink" title="重载和重写"></a>重载和重写</h3><h3 id="常见面试问题"><a href="#常见面试问题" class="headerlink" title="常见面试问题"></a>常见面试问题</h3><h4 id="1-指针和引用的区别-：-引用被创建的同时必须被初始化（指针则可以在任何时候被初始化）。不能有-NULL-引用，引用必须与合法的存储单元关联（指针则可以是-NULL）。一旦引用被初始化，就不能改变引用的关系（指针则可以随时改变所指的对象）。"><a href="#1-指针和引用的区别-：-引用被创建的同时必须被初始化（指针则可以在任何时候被初始化）。不能有-NULL-引用，引用必须与合法的存储单元关联（指针则可以是-NULL）。一旦引用被初始化，就不能改变引用的关系（指针则可以随时改变所指的对象）。" class="headerlink" title="1. 指针和引用的区别 ： 引用被创建的同时必须被初始化（指针则可以在任何时候被初始化）。不能有 NULL 引用，引用必须与合法的存储单元关联（指针则可以是 NULL）。一旦引用被初始化，就不能改变引用的关系（指针则可以随时改变所指的对象）。"></a>1. 指针和引用的区别 ： 引用被创建的同时必须被初始化（指针则可以在任何时候被初始化）。不能有 NULL 引用，引用必须与合法的存储单元关联（指针则可以是 NULL）。一旦引用被初始化，就不能改变引用的关系（指针则可以随时改变所指的对象）。</h4><h4 id="2-new-和-delete-是如何实现的。-：C-程序中，所有内存需求都是在程序执行之前通过定义所需的变量来确定的。-但是可能存在程序的内存需求只能在运行时确定的情况。-例如，当需要的内存取决于用户输入。-在这些情况下，程序需要动态分配内存，C-语言将运算符new和delete合成在一起。"><a href="#2-new-和-delete-是如何实现的。-：C-程序中，所有内存需求都是在程序执行之前通过定义所需的变量来确定的。-但是可能存在程序的内存需求只能在运行时确定的情况。-例如，当需要的内存取决于用户输入。-在这些情况下，程序需要动态分配内存，C-语言将运算符new和delete合成在一起。" class="headerlink" title="2. new 和 delete 是如何实现的。 ：C++程序中，所有内存需求都是在程序执行之前通过定义所需的变量来确定的。 但是可能存在程序的内存需求只能在运行时确定的情况。 例如，当需要的内存取决于用户输入。 在这些情况下，程序需要动态分配内存，C ++语言将运算符new和delete合成在一起。"></a>2. new 和 delete 是如何实现的。 ：C++程序中，所有内存需求都是在程序执行之前通过定义所需的变量来确定的。 但是可能存在程序的内存需求只能在运行时确定的情况。 例如，当需要的内存取决于用户输入。 在这些情况下，程序需要动态分配内存，C ++语言将运算符new和delete合成在一起。</h4><h4 id="3-new-和-malloc-的异同"><a href="#3-new-和-malloc-的异同" class="headerlink" title="3. new 和 malloc 的异同"></a>3. new 和 malloc 的异同</h4><h4 id="4-C-和-C-的区别"><a href="#4-C-和-C-的区别" class="headerlink" title="4. C 和 C++ 的区别"></a>4. C 和 C++ 的区别</h4><h4 id="5-C-和-Java-的区别-（包括语言特性、垃圾回收、应用场景等（java的垃圾回收机制））"><a href="#5-C-和-Java-的区别-（包括语言特性、垃圾回收、应用场景等（java的垃圾回收机制））" class="headerlink" title="5. C 和 Java 的区别 （包括语言特性、垃圾回收、应用场景等（java的垃圾回收机制））"></a>5. C 和 Java 的区别 （包括语言特性、垃圾回收、应用场景等（java的垃圾回收机制））</h4><h4 id="6-Struct和class的区别"><a href="#6-Struct和class的区别" class="headerlink" title="6. Struct和class的区别"></a>6. Struct和class的区别</h4><h4 id="7-define-和const的区别（编译阶段、安全性、内存占用等）"><a href="#7-define-和const的区别（编译阶段、安全性、内存占用等）" class="headerlink" title="7. define 和const的区别（编译阶段、安全性、内存占用等）"></a>7. define 和const的区别（编译阶段、安全性、内存占用等）</h4><h4 id="8-在C-中const和static的用法（定义，用途）"><a href="#8-在C-中const和static的用法（定义，用途）" class="headerlink" title="8. 在C++中const和static的用法（定义，用途）"></a>8. 在C++中const和static的用法（定义，用途）</h4><h4 id="9-重载和重写的区别"><a href="#9-重载和重写的区别" class="headerlink" title="9. 重载和重写的区别"></a>9. 重载和重写的区别</h4><h4 id="10-C-内存管理"><a href="#10-C-内存管理" class="headerlink" title="10. C++ 内存管理"></a>10. C++ 内存管理</h4><h4 id="11-介绍三大特性，举例说明每一个。-：一个对象具备多种形态，也可以理解为事物存在的多种体现形态-1-多态用于形式参数类型的时候，可以接受更多类型的数据。-2-多态用于返回值类型的时候，可以返回更多类型的数据。-多态的好处：提高了代码的拓展性。"><a href="#11-介绍三大特性，举例说明每一个。-：一个对象具备多种形态，也可以理解为事物存在的多种体现形态-1-多态用于形式参数类型的时候，可以接受更多类型的数据。-2-多态用于返回值类型的时候，可以返回更多类型的数据。-多态的好处：提高了代码的拓展性。" class="headerlink" title="11. 介绍三大特性，举例说明每一个。 ：一个对象具备多种形态，也可以理解为事物存在的多种体现形态 1. 多态用于形式参数类型的时候，可以接受更多类型的数据。 2. 多态用于返回值类型的时候，可以返回更多类型的数据。 多态的好处：提高了代码的拓展性。"></a>11. 介绍三大特性，举例说明每一个。 ：一个对象具备多种形态，也可以理解为事物存在的多种体现形态 1. 多态用于形式参数类型的时候，可以接受更多类型的数据。 2. 多态用于返回值类型的时候，可以返回更多类型的数据。 多态的好处：提高了代码的拓展性。</h4><h4 id="12-多态的实现-虚函数相关（）"><a href="#12-多态的实现-虚函数相关（）" class="headerlink" title="12. 多态的实现 虚函数相关（）"></a>12. 多态的实现 虚函数相关（）</h4><h4 id="13-析构函数一般写成虚函数的原因"><a href="#13-析构函数一般写成虚函数的原因" class="headerlink" title="13. 析构函数一般写成虚函数的原因"></a>13. 析构函数一般写成虚函数的原因</h4><h4 id="14-构造函数为什么一般不定义为虚函数"><a href="#14-构造函数为什么一般不定义为虚函数" class="headerlink" title="14. 构造函数为什么一般不定义为虚函数"></a>14. 构造函数为什么一般不定义为虚函数</h4><h4 id="15-构造函数或者析构函数中调用虚函数会怎样"><a href="#15-构造函数或者析构函数中调用虚函数会怎样" class="headerlink" title="15. 构造函数或者析构函数中调用虚函数会怎样"></a>15. 构造函数或者析构函数中调用虚函数会怎样</h4><h4 id="16-虚函数和纯虚函数"><a href="#16-虚函数和纯虚函数" class="headerlink" title="16. 虚函数和纯虚函数"></a>16. 虚函数和纯虚函数</h4><h4 id="17-引用是否能实现动态绑定，为什么引用可以实现"><a href="#17-引用是否能实现动态绑定，为什么引用可以实现" class="headerlink" title="17. 引用是否能实现动态绑定，为什么引用可以实现"></a>17. 引用是否能实现动态绑定，为什么引用可以实现</h4><h4 id="18-深拷贝和浅拷贝的区别（举例说明深拷贝的安全性）"><a href="#18-深拷贝和浅拷贝的区别（举例说明深拷贝的安全性）" class="headerlink" title="18. 深拷贝和浅拷贝的区别（举例说明深拷贝的安全性）"></a>18. 深拷贝和浅拷贝的区别（举例说明深拷贝的安全性）</h4><h4 id="19-介绍C-所有的构造函数"><a href="#19-介绍C-所有的构造函数" class="headerlink" title="19. 介绍C++所有的构造函数"></a>19. 介绍C++所有的构造函数</h4><h4 id="20-什么情况下会调用拷贝构造函数（三种情况）"><a href="#20-什么情况下会调用拷贝构造函数（三种情况）" class="headerlink" title="20. 什么情况下会调用拷贝构造函数（三种情况）"></a>20. 什么情况下会调用拷贝构造函数（三种情况）</h4><h4 id="21-内存泄露的定义，如何检测与避免？"><a href="#21-内存泄露的定义，如何检测与避免？" class="headerlink" title="21. 内存泄露的定义，如何检测与避免？"></a>21. 内存泄露的定义，如何检测与避免？</h4><h4 id="22-智能指针"><a href="#22-智能指针" class="headerlink" title="22. 智能指针"></a>22. 智能指针</h4><h4 id="23-C-语言的控制结构-：顺序-选择-循环"><a href="#23-C-语言的控制结构-：顺序-选择-循环" class="headerlink" title="23. C 语言的控制结构  ：顺序 选择 循环"></a>23. C 语言的控制结构  ：顺序 选择 循环</h4><h4 id="24-数组和指针的区别-：-数组：数组是用于储存多个相同类型数据的集合。-指针：指针相当于一个变量，但是它和不同变量不一样，它存放的是其它变量在内存中的地址。没有方括号和下标的数组名称实际上代表数组的起始地址。这意味着数组名称实际上就是一个指针。"><a href="#24-数组和指针的区别-：-数组：数组是用于储存多个相同类型数据的集合。-指针：指针相当于一个变量，但是它和不同变量不一样，它存放的是其它变量在内存中的地址。没有方括号和下标的数组名称实际上代表数组的起始地址。这意味着数组名称实际上就是一个指针。" class="headerlink" title="24. 数组和指针的区别 ： 数组：数组是用于储存多个相同类型数据的集合。 指针：指针相当于一个变量，但是它和不同变量不一样，它存放的是其它变量在内存中的地址。没有方括号和下标的数组名称实际上代表数组的起始地址。这意味着数组名称实际上就是一个指针。"></a>24. 数组和指针的区别 ： 数组：数组是用于储存多个相同类型数据的集合。 指针：指针相当于一个变量，但是它和不同变量不一样，它存放的是其它变量在内存中的地址。没有方括号和下标的数组名称实际上代表数组的起始地址。这意味着数组名称实际上就是一个指针。</h4><h4 id="25-空类-内存大小1字节-实例化。C-默认生成的函数，只有在被需要的时候，才会产生。即当我们定义一个类，而不创建类的对象时，就不会创建类的构造函数、析构函数等。"><a href="#25-空类-内存大小1字节-实例化。C-默认生成的函数，只有在被需要的时候，才会产生。即当我们定义一个类，而不创建类的对象时，就不会创建类的构造函数、析构函数等。" class="headerlink" title="25. 空类 内存大小1字节  实例化。C++默认生成的函数，只有在被需要的时候，才会产生。即当我们定义一个类，而不创建类的对象时，就不会创建类的构造函数、析构函数等。"></a>25. 空类 内存大小1字节  实例化。C++默认生成的函数，只有在被需要的时候，才会产生。即当我们定义一个类，而不创建类的对象时，就不会创建类的构造函数、析构函数等。</h4><h4 id="26-Char-和varchar-的区别。-：Char的长度是固定的，varchar是可变的，Text不指定长度"><a href="#26-Char-和varchar-的区别。-：Char的长度是固定的，varchar是可变的，Text不指定长度" class="headerlink" title="26.Char 和varchar 的区别。 ：Char的长度是固定的，varchar是可变的，Text不指定长度"></a>26.Char 和varchar 的区别。 ：Char的长度是固定的，varchar是可变的，Text不指定长度</h4>
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/准备面试（C-语言基础，操作系统，计算机网络，数据库，设计模式，算法）/" rel="tag"># 准备面试（C++语言基础，操作系统，计算机网络，数据库，设计模式，算法）</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2020/02/20/数据库/" rel="next" title="数据库">
+                  <i class="fa fa-chevron-left"></i> 数据库
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2020/02/22/行测问题/" rel="prev" title="">
+                   <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#C"><span class="nav-number">1.</span> <span class="nav-text">C++</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#面向对象思想"><span class="nav-number">2.</span> <span class="nav-text">面向对象思想</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#封装"><span class="nav-number"></span> <span class="nav-text">封装</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#继承"><span class="nav-number"></span> <span class="nav-text">继承</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多态"><span class="nav-number"></span> <span class="nav-text">多态</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#重载和重写"><span class="nav-number">1.</span> <span class="nav-text">重载和重写</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常见面试问题"><span class="nav-number">2.</span> <span class="nav-text">常见面试问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-指针和引用的区别-：-引用被创建的同时必须被初始化（指针则可以在任何时候被初始化）。不能有-NULL-引用，引用必须与合法的存储单元关联（指针则可以是-NULL）。一旦引用被初始化，就不能改变引用的关系（指针则可以随时改变所指的对象）。"><span class="nav-number">2.1.</span> <span class="nav-text">1. 指针和引用的区别 ： 引用被创建的同时必须被初始化（指针则可以在任何时候被初始化）。不能有 NULL 引用，引用必须与合法的存储单元关联（指针则可以是 NULL）。一旦引用被初始化，就不能改变引用的关系（指针则可以随时改变所指的对象）。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-new-和-delete-是如何实现的。-：C-程序中，所有内存需求都是在程序执行之前通过定义所需的变量来确定的。-但是可能存在程序的内存需求只能在运行时确定的情况。-例如，当需要的内存取决于用户输入。-在这些情况下，程序需要动态分配内存，C-语言将运算符new和delete合成在一起。"><span class="nav-number">2.2.</span> <span class="nav-text">2. new 和 delete 是如何实现的。 ：C++程序中，所有内存需求都是在程序执行之前通过定义所需的变量来确定的。 但是可能存在程序的内存需求只能在运行时确定的情况。 例如，当需要的内存取决于用户输入。 在这些情况下，程序需要动态分配内存，C ++语言将运算符new和delete合成在一起。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-new-和-malloc-的异同"><span class="nav-number">2.3.</span> <span class="nav-text">3. new 和 malloc 的异同</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-C-和-C-的区别"><span class="nav-number">2.4.</span> <span class="nav-text">4. C 和 C++ 的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-C-和-Java-的区别-（包括语言特性、垃圾回收、应用场景等（java的垃圾回收机制））"><span class="nav-number">2.5.</span> <span class="nav-text">5. C 和 Java 的区别 （包括语言特性、垃圾回收、应用场景等（java的垃圾回收机制））</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-Struct和class的区别"><span class="nav-number">2.6.</span> <span class="nav-text">6. Struct和class的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-define-和const的区别（编译阶段、安全性、内存占用等）"><span class="nav-number">2.7.</span> <span class="nav-text">7. define 和const的区别（编译阶段、安全性、内存占用等）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-在C-中const和static的用法（定义，用途）"><span class="nav-number">2.8.</span> <span class="nav-text">8. 在C++中const和static的用法（定义，用途）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-重载和重写的区别"><span class="nav-number">2.9.</span> <span class="nav-text">9. 重载和重写的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-C-内存管理"><span class="nav-number">2.10.</span> <span class="nav-text">10. C++ 内存管理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#11-介绍三大特性，举例说明每一个。-：一个对象具备多种形态，也可以理解为事物存在的多种体现形态-1-多态用于形式参数类型的时候，可以接受更多类型的数据。-2-多态用于返回值类型的时候，可以返回更多类型的数据。-多态的好处：提高了代码的拓展性。"><span class="nav-number">2.11.</span> <span class="nav-text">11. 介绍三大特性，举例说明每一个。 ：一个对象具备多种形态，也可以理解为事物存在的多种体现形态 1. 多态用于形式参数类型的时候，可以接受更多类型的数据。 2. 多态用于返回值类型的时候，可以返回更多类型的数据。 多态的好处：提高了代码的拓展性。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#12-多态的实现-虚函数相关（）"><span class="nav-number">2.12.</span> <span class="nav-text">12. 多态的实现 虚函数相关（）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#13-析构函数一般写成虚函数的原因"><span class="nav-number">2.13.</span> <span class="nav-text">13. 析构函数一般写成虚函数的原因</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#14-构造函数为什么一般不定义为虚函数"><span class="nav-number">2.14.</span> <span class="nav-text">14. 构造函数为什么一般不定义为虚函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#15-构造函数或者析构函数中调用虚函数会怎样"><span class="nav-number">2.15.</span> <span class="nav-text">15. 构造函数或者析构函数中调用虚函数会怎样</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#16-虚函数和纯虚函数"><span class="nav-number">2.16.</span> <span class="nav-text">16. 虚函数和纯虚函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#17-引用是否能实现动态绑定，为什么引用可以实现"><span class="nav-number">2.17.</span> <span class="nav-text">17. 引用是否能实现动态绑定，为什么引用可以实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#18-深拷贝和浅拷贝的区别（举例说明深拷贝的安全性）"><span class="nav-number">2.18.</span> <span class="nav-text">18. 深拷贝和浅拷贝的区别（举例说明深拷贝的安全性）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#19-介绍C-所有的构造函数"><span class="nav-number">2.19.</span> <span class="nav-text">19. 介绍C++所有的构造函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#20-什么情况下会调用拷贝构造函数（三种情况）"><span class="nav-number">2.20.</span> <span class="nav-text">20. 什么情况下会调用拷贝构造函数（三种情况）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#21-内存泄露的定义，如何检测与避免？"><span class="nav-number">2.21.</span> <span class="nav-text">21. 内存泄露的定义，如何检测与避免？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#22-智能指针"><span class="nav-number">2.22.</span> <span class="nav-text">22. 智能指针</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#23-C-语言的控制结构-：顺序-选择-循环"><span class="nav-number">2.23.</span> <span class="nav-text">23. C 语言的控制结构  ：顺序 选择 循环</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#24-数组和指针的区别-：-数组：数组是用于储存多个相同类型数据的集合。-指针：指针相当于一个变量，但是它和不同变量不一样，它存放的是其它变量在内存中的地址。没有方括号和下标的数组名称实际上代表数组的起始地址。这意味着数组名称实际上就是一个指针。"><span class="nav-number">2.24.</span> <span class="nav-text">24. 数组和指针的区别 ： 数组：数组是用于储存多个相同类型数据的集合。 指针：指针相当于一个变量，但是它和不同变量不一样，它存放的是其它变量在内存中的地址。没有方括号和下标的数组名称实际上代表数组的起始地址。这意味着数组名称实际上就是一个指针。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#25-空类-内存大小1字节-实例化。C-默认生成的函数，只有在被需要的时候，才会产生。即当我们定义一个类，而不创建类的对象时，就不会创建类的构造函数、析构函数等。"><span class="nav-number">2.25.</span> <span class="nav-text">25. 空类 内存大小1字节  实例化。C++默认生成的函数，只有在被需要的时候，才会产生。即当我们定义一个类，而不创建类的对象时，就不会创建类的构造函数、析构函数等。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#26-Char-和varchar-的区别。-：Char的长度是固定的，varchar是可变的，Text不指定长度"><span class="nav-number">2.26.</span> <span class="nav-text">26.Char 和varchar 的区别。 ：Char的长度是固定的，varchar是可变的，Text不指定长度</span></a></li></ol></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">tags</span>
+        
+      </div>
+    
+  </nav>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.4.0</div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+
+
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.4.0"></script><script src="/js/motion.js?v=7.4.0"></script>
+<script src="/js/schemes/muse.js?v=7.4.0"></script>
+<script src="/js/next-boot.js?v=7.4.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.4.0" color="#222">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.4.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: 'Copy',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="数据结构ListStackQueueHeapBST排序算法常见面试问题1. 判断一个链表是否有环，如何找到这个环的起点2. 反转一个链表3. 二叉树的先序、中序、后序遍历（非递归实现）4. 二叉树的公共祖先（简单地说，剑指offer上的题大都是高频题）5. 排序算法（写快排，归并排序，堆排序），算法的时间复杂度，空间复杂度，是否稳定等6. 海量数据问题（可参考左神的书）7. 用栈实现队列8. 栈和">
+<meta name="keywords" content="准备面试（C++语言基础，操作系统，计算机网络，数据库，设计模式，算法）">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构基础">
+<meta property="og:url" content="http://yoursite.com/2020/02/20/数据结构/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="数据结构ListStackQueueHeapBST排序算法常见面试问题1. 判断一个链表是否有环，如何找到这个环的起点2. 反转一个链表3. 二叉树的先序、中序、后序遍历（非递归实现）4. 二叉树的公共祖先（简单地说，剑指offer上的题大都是高频题）5. 排序算法（写快排，归并排序，堆排序），算法的时间复杂度，空间复杂度，是否稳定等6. 海量数据问题（可参考左神的书）7. 用栈实现队列8. 栈和">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-02-22T10:11:36.131Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数据结构基础">
+<meta name="twitter:description" content="数据结构ListStackQueueHeapBST排序算法常见面试问题1. 判断一个链表是否有环，如何找到这个环的起点2. 反转一个链表3. 二叉树的先序、中序、后序遍历（非递归实现）4. 二叉树的公共祖先（简单地说，剑指offer上的题大都是高频题）5. 排序算法（写快排，归并排序，堆排序），算法的时间复杂度，空间复杂度，是否稳定等6. 海量数据问题（可参考左神的书）7. 用栈实现队列8. 栈和">
+  <link rel="canonical" href="http://yoursite.com/2020/02/20/数据结构/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>数据结构基础 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="Toggle navigation bar">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+
+  </li>
+  </ul>
+
+    
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+      <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block post">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/20/数据结构/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">数据结构基础
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              
+                
+              
+
+              <time title="Created: 2020-02-20 17:06:12" itemprop="dateCreated datePublished" datetime="2020-02-20T17:06:12+08:00">2020-02-20</time>
+            </span>
+          
+            
+
+            
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-02-22 18:11:36" itemprop="dateModified" datetime="2020-02-22T18:11:36+08:00">2020-02-22</time>
+              </span>
+            
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h3><h2 id="List"><a href="#List" class="headerlink" title="List"></a>List</h2><h2 id="Stack"><a href="#Stack" class="headerlink" title="Stack"></a>Stack</h2><h2 id="Queue"><a href="#Queue" class="headerlink" title="Queue"></a>Queue</h2><h3 id="Heap"><a href="#Heap" class="headerlink" title="Heap"></a>Heap</h3><h3 id="BST"><a href="#BST" class="headerlink" title="BST"></a>BST</h3><h3 id="排序算法"><a href="#排序算法" class="headerlink" title="排序算法"></a>排序算法</h3><h3 id="常见面试问题"><a href="#常见面试问题" class="headerlink" title="常见面试问题"></a>常见面试问题</h3><h4 id="1-判断一个链表是否有环，如何找到这个环的起点"><a href="#1-判断一个链表是否有环，如何找到这个环的起点" class="headerlink" title="1. 判断一个链表是否有环，如何找到这个环的起点"></a>1. 判断一个链表是否有环，如何找到这个环的起点</h4><h4 id="2-反转一个链表"><a href="#2-反转一个链表" class="headerlink" title="2. 反转一个链表"></a>2. 反转一个链表</h4><h4 id="3-二叉树的先序、中序、后序遍历（非递归实现）"><a href="#3-二叉树的先序、中序、后序遍历（非递归实现）" class="headerlink" title="3. 二叉树的先序、中序、后序遍历（非递归实现）"></a>3. 二叉树的先序、中序、后序遍历（非递归实现）</h4><h4 id="4-二叉树的公共祖先（简单地说，剑指offer上的题大都是高频题）"><a href="#4-二叉树的公共祖先（简单地说，剑指offer上的题大都是高频题）" class="headerlink" title="4. 二叉树的公共祖先（简单地说，剑指offer上的题大都是高频题）"></a>4. 二叉树的公共祖先（简单地说，剑指offer上的题大都是高频题）</h4><h4 id="5-排序算法（写快排，归并排序，堆排序），算法的时间复杂度，空间复杂度，是否稳定等"><a href="#5-排序算法（写快排，归并排序，堆排序），算法的时间复杂度，空间复杂度，是否稳定等" class="headerlink" title="5. 排序算法（写快排，归并排序，堆排序），算法的时间复杂度，空间复杂度，是否稳定等"></a>5. 排序算法（写快排，归并排序，堆排序），算法的时间复杂度，空间复杂度，是否稳定等</h4><h4 id="6-海量数据问题（可参考左神的书）"><a href="#6-海量数据问题（可参考左神的书）" class="headerlink" title="6. 海量数据问题（可参考左神的书）"></a>6. 海量数据问题（可参考左神的书）</h4><h4 id="7-用栈实现队列"><a href="#7-用栈实现队列" class="headerlink" title="7. 用栈实现队列"></a>7. 用栈实现队列</h4><h4 id="8-栈和队列的区别"><a href="#8-栈和队列的区别" class="headerlink" title="8. 栈和队列的区别"></a>8. 栈和队列的区别</h4><h4 id="9-重载和重写的区别"><a href="#9-重载和重写的区别" class="headerlink" title="9. 重载和重写的区别"></a>9. 重载和重写的区别</h4><h4 id="10-C-内存管理"><a href="#10-C-内存管理" class="headerlink" title="10. C++ 内存管理"></a>10. C++ 内存管理</h4><h4 id="11-介绍三大特性，举例说明每一个"><a href="#11-介绍三大特性，举例说明每一个" class="headerlink" title="11. 介绍三大特性，举例说明每一个"></a>11. 介绍三大特性，举例说明每一个</h4><h4 id="12-多态的实现-虚函数相关（）"><a href="#12-多态的实现-虚函数相关（）" class="headerlink" title="12. 多态的实现 虚函数相关（）"></a>12. 多态的实现 虚函数相关（）</h4><h4 id="13-析构函数一般写成虚函数的原因"><a href="#13-析构函数一般写成虚函数的原因" class="headerlink" title="13. 析构函数一般写成虚函数的原因"></a>13. 析构函数一般写成虚函数的原因</h4><h4 id="14-构造函数为什么一般不定义为虚函数"><a href="#14-构造函数为什么一般不定义为虚函数" class="headerlink" title="14. 构造函数为什么一般不定义为虚函数"></a>14. 构造函数为什么一般不定义为虚函数</h4><h4 id="15-构造函数或者析构函数中调用虚函数会怎样"><a href="#15-构造函数或者析构函数中调用虚函数会怎样" class="headerlink" title="15. 构造函数或者析构函数中调用虚函数会怎样"></a>15. 构造函数或者析构函数中调用虚函数会怎样</h4><h4 id="16-虚函数和纯虚函数"><a href="#16-虚函数和纯虚函数" class="headerlink" title="16. 虚函数和纯虚函数"></a>16. 虚函数和纯虚函数</h4><h4 id="17-引用是否能实现动态绑定，为什么引用可以实现"><a href="#17-引用是否能实现动态绑定，为什么引用可以实现" class="headerlink" title="17. 引用是否能实现动态绑定，为什么引用可以实现"></a>17. 引用是否能实现动态绑定，为什么引用可以实现</h4><h4 id="18-深拷贝和浅拷贝的区别（举例说明深拷贝的安全性）"><a href="#18-深拷贝和浅拷贝的区别（举例说明深拷贝的安全性）" class="headerlink" title="18. 深拷贝和浅拷贝的区别（举例说明深拷贝的安全性）"></a>18. 深拷贝和浅拷贝的区别（举例说明深拷贝的安全性）</h4><h4 id="19-介绍C-所有的构造函数"><a href="#19-介绍C-所有的构造函数" class="headerlink" title="19. 介绍C++所有的构造函数"></a>19. 介绍C++所有的构造函数</h4><h4 id="20-什么情况下会调用拷贝构造函数（三种情况）"><a href="#20-什么情况下会调用拷贝构造函数（三种情况）" class="headerlink" title="20. 什么情况下会调用拷贝构造函数（三种情况）"></a>20. 什么情况下会调用拷贝构造函数（三种情况）</h4><h4 id="21-内存泄露的定义，如何检测与避免？"><a href="#21-内存泄露的定义，如何检测与避免？" class="headerlink" title="21. 内存泄露的定义，如何检测与避免？"></a>21. 内存泄露的定义，如何检测与避免？</h4><h4 id="22-智能指针"><a href="#22-智能指针" class="headerlink" title="22. 智能指针"></a>22. 智能指针</h4>
+    </div>
+
+    
+    
+    
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/准备面试（C-语言基础，操作系统，计算机网络，数据库，设计模式，算法）/" rel="tag"># 准备面试（C++语言基础，操作系统，计算机网络，数据库，设计模式，算法）</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2020/02/20/计算机网络/" rel="next" title="计算机网络">
+                  <i class="fa fa-chevron-left"></i> 计算机网络
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2020/02/20/操作系统/" rel="prev" title="操作系统">
+                  操作系统 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#数据结构"><span class="nav-number">1.</span> <span class="nav-text">数据结构</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#List"><span class="nav-number"></span> <span class="nav-text">List</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Stack"><span class="nav-number"></span> <span class="nav-text">Stack</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Queue"><span class="nav-number"></span> <span class="nav-text">Queue</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Heap"><span class="nav-number">1.</span> <span class="nav-text">Heap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BST"><span class="nav-number">2.</span> <span class="nav-text">BST</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#排序算法"><span class="nav-number">3.</span> <span class="nav-text">排序算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常见面试问题"><span class="nav-number">4.</span> <span class="nav-text">常见面试问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-判断一个链表是否有环，如何找到这个环的起点"><span class="nav-number">4.1.</span> <span class="nav-text">1. 判断一个链表是否有环，如何找到这个环的起点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-反转一个链表"><span class="nav-number">4.2.</span> <span class="nav-text">2. 反转一个链表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-二叉树的先序、中序、后序遍历（非递归实现）"><span class="nav-number">4.3.</span> <span class="nav-text">3. 二叉树的先序、中序、后序遍历（非递归实现）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-二叉树的公共祖先（简单地说，剑指offer上的题大都是高频题）"><span class="nav-number">4.4.</span> <span class="nav-text">4. 二叉树的公共祖先（简单地说，剑指offer上的题大都是高频题）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-排序算法（写快排，归并排序，堆排序），算法的时间复杂度，空间复杂度，是否稳定等"><span class="nav-number">4.5.</span> <span class="nav-text">5. 排序算法（写快排，归并排序，堆排序），算法的时间复杂度，空间复杂度，是否稳定等</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-海量数据问题（可参考左神的书）"><span class="nav-number">4.6.</span> <span class="nav-text">6. 海量数据问题（可参考左神的书）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-用栈实现队列"><span class="nav-number">4.7.</span> <span class="nav-text">7. 用栈实现队列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#8-栈和队列的区别"><span class="nav-number">4.8.</span> <span class="nav-text">8. 栈和队列的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#9-重载和重写的区别"><span class="nav-number">4.9.</span> <span class="nav-text">9. 重载和重写的区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#10-C-内存管理"><span class="nav-number">4.10.</span> <span class="nav-text">10. C++ 内存管理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#11-介绍三大特性，举例说明每一个"><span class="nav-number">4.11.</span> <span class="nav-text">11. 介绍三大特性，举例说明每一个</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#12-多态的实现-虚函数相关（）"><span class="nav-number">4.12.</span> <span class="nav-text">12. 多态的实现 虚函数相关（）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#13-析构函数一般写成虚函数的原因"><span class="nav-number">4.13.</span> <span class="nav-text">13. 析构函数一般写成虚函数的原因</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#14-构造函数为什么一般不定义为虚函数"><span class="nav-number">4.14.</span> <span class="nav-text">14. 构造函数为什么一般不定义为虚函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#15-构造函数或者析构函数中调用虚函数会怎样"><span class="nav-number">4.15.</span> <span class="nav-text">15. 构造函数或者析构函数中调用虚函数会怎样</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#16-虚函数和纯虚函数"><span class="nav-number">4.16.</span> <span class="nav-text">16. 虚函数和纯虚函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#17-引用是否能实现动态绑定，为什么引用可以实现"><span class="nav-number">4.17.</span> <span class="nav-text">17. 引用是否能实现动态绑定，为什么引用可以实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#18-深拷贝和浅拷贝的区别（举例说明深拷贝的安全性）"><span class="nav-number">4.18.</span> <span class="nav-text">18. 深拷贝和浅拷贝的区别（举例说明深拷贝的安全性）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#19-介绍C-所有的构造函数"><span class="nav-number">4.19.</span> <span class="nav-text">19. 介绍C++所有的构造函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#20-什么情况下会调用拷贝构造函数（三种情况）"><span class="nav-number">4.20.</span> <span class="nav-text">20. 什么情况下会调用拷贝构造函数（三种情况）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#21-内存泄露的定义，如何检测与避免？"><span class="nav-number">4.21.</span> <span class="nav-text">21. 内存泄露的定义，如何检测与避免？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#22-智能指针"><span class="nav-number">4.22.</span> <span class="nav-text">22. 智能指针</span></a></li></ol></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">9</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">tags</span>
+        
+      </div>
+    
+  </nav>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> v7.4.0</div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+
+
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.4.0"></script><script src="/js/motion.js?v=7.4.0"></script>
+<script src="/js/schemes/muse.js?v=7.4.0"></script>
+<script src="/js/next-boot.js?v=7.4.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
